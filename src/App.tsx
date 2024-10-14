@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/user/login";
-import RegisterPage from "./pages/user/register";
+import LoginPage from "./pages/auth/login";
+import RegisterPage from "./pages/auth/register";
 import HomePage from "./pages/user/home";
 import UserLayout from "./components/layout/user";
 import AccountPage from "./pages/user/account";
