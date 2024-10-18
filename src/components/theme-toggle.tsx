@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
 
 import { Theme } from "../constants";
-import LightIcon from "../../public/icons/light-icon";
-import DarkIcon from "../../public/icons/dark-icon";
+import LightIcon from "../assets/icons/light-icon";
+import DarkIcon from "../assets/icons/dark-icon";
 
 const ThemeToggle = () => {
   const [darkMode, setDarkMode] = useState(false);

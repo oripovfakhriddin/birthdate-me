@@ -1,9 +1,14 @@
 import { useState } from "react";
-import Logo from "../../../../../public/pictures/logo.png";
-import ThemeToggle from "../../../theme-toggle";
-import HamburgerIcon from "../../../../../public/icons/hamburger-icon";
-import CloseIcon from "../../../../../public/icons/close-icon";
 import { NavLink } from "react-router-dom";
+import Logo from "/pictures/logo.png";
+import ThemeToggle from "../../../theme-toggle";
+import HamburgerIcon from "../../../../assets/icons/hamburger-icon";
+import CloseIcon from "../../../../assets/icons/close-icon";
+import LogOutIcon from "../../../../assets/icons/log-out-icon";
+import HomeIcon from "../../../../assets/icons/home-icon";
+import ContactUsIcon from "../../../../assets/icons/contact-us-icon";
+import AboutUsIcon from "../../../../assets/icons/about-us-icon";
+import PersonIcon from "../../../../assets/icons/person-icon";
 
 const UserHeader = () => {
   const [isNavbar, setIsNavbar] = useState(false);
@@ -32,6 +37,17 @@ const UserHeader = () => {
               <option value='uzb'>UZ</option>
             </select>
             <ThemeToggle />
+            <NavLink
+              to={"account"}
+              className='p-1 text-gray-500 rounded-lg transition  hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none'>
+              <PersonIcon />
+            </NavLink>
+            <button
+              data-collapse-toggle='log-out toggle'
+              type='button'
+              className='p-1 hidden md:block text-gray-500 rounded-lg transition  hover:bg-red-300  dark:hover:bg-red-300 focus:outline-none'>
+              <LogOutIcon />
+            </button>
             <button
               onClick={() => {
                 setIsNavbar(!isNavbar);
@@ -57,9 +73,10 @@ const UserHeader = () => {
                   onClick={() => {
                     setIsNavbar(!isNavbar);
                   }}
-                  className='block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
+                  className='flex items-center  gap-1 py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
                   aria-current='page'>
-                  Bosh sahifa
+                  <HomeIcon className='md:hidden' />
+                  <span>Bosh sahifa</span>
                 </NavLink>
               </li>
               <li>
@@ -68,8 +85,9 @@ const UserHeader = () => {
                   onClick={() => {
                     setIsNavbar(!isNavbar);
                   }}
-                  className='block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
-                  Bog'lanish
+                  className='flex items-center  gap-1 py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
+                  <ContactUsIcon className='md:hidden' />
+                  <span>Bog'lanish</span>
                 </NavLink>
               </li>
               <li>
@@ -78,9 +96,19 @@ const UserHeader = () => {
                   onClick={() => {
                     setIsNavbar(!isNavbar);
                   }}
-                  className='block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
-                  Biz haqimizda
+                  className='flex items-center  gap-1 py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
+                  <AboutUsIcon className='md:hidden' />
+                  <span> Biz haqimizda</span>
                 </NavLink>
+              </li>
+              <li className='md:hidden'>
+                <button
+                  data-collapse-toggle='log-out toggle'
+                  type='button'
+                  className='flex items-center gap-2 py-2 px-3 md:p-0 w-full text-gray-900 rounded hover:bg-red-200 md:hover:bg-transparent  dark:hover:bg-red-300  md:dark:hover:bg-transparent dark:border-gray-700'>
+                  <LogOutIcon />
+                  <span className=' text-[#EA3323]'>Chiqish</span>
+                </button>
               </li>
             </ul>
           </div>

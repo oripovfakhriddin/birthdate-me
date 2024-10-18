@@ -1,10 +1,11 @@
 import { Fragment, useState } from "react";
-import OpenEyeIcon from "../../../../public/icons/open-eye-icon";
-import CloseEyeIcon from "../../../../public/icons/close-eye-icon";
-import EmailIcon from "../../../../public/icons/email-icon";
-import PasswordIcon from "../../../../public/icons/password-icon";
-import PersonIcon from "../../../../public/icons/person-icon";
-import DateIcon from "../../../../public/icons/date-icon";
+import OpenEyeIcon from "../../../assets/icons/open-eye-icon";
+import CloseEyeIcon from "../../../assets/icons/close-eye-icon";
+import EmailIcon from "../../../assets/icons/email-icon";
+import PasswordIcon from "../../../assets/icons/password-icon";
+import PersonIcon from "../../../assets/icons/person-icon";
+import DateIcon from "../../../assets/icons/date-icon";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
   const [isPasswordToogle, setIsPasswordToogle] = useState(false);
@@ -128,12 +129,18 @@ const RegisterPage = () => {
                 </div>
                 <button
                   type='submit'
-                  className='bg-black rounded-md text-white p-2 col-span-2'>
+                  className='bg-black rounded-md text-white p-2 col-span-2 mb-4 md:mb-0'>
                   Ro'yhatdan o'tish
                 </button>
+                <div className='flex justify-between col-span-2'>
+                  <p>Akauntingiz bormi?</p>
+                  <Link to='/register' className='text-blue-500'>
+                    Kirish
+                  </Link>
+                </div>
               </form>
             </div>
-            <p className='absolute md:bottom-[-18%]  text-xs text-center w-[90%]'>
+            <p className='absolute md:bottom-[-10%] bottom-[0] text-xs text-center w-[90%]'>
               Copyright © 2021 of Tashkent University of Information
               Technologies
             </p>

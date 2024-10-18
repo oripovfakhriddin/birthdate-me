@@ -1,9 +1,10 @@
 import { Fragment, useState } from "react";
-import LoginImg from "../../../../public/pictures/logo-login-background.png";
-import OpenEyeIcon from "../../../../public/icons/open-eye-icon";
-import CloseEyeIcon from "../../../../public/icons/close-eye-icon";
-import EmailIcon from "../../../../public/icons/email-icon";
-import PasswordIcon from "../../../../public/icons/password-icon";
+import LoginImg from "/pictures/logo-login-background.png";
+import OpenEyeIcon from "../../../assets/icons/open-eye-icon";
+import CloseEyeIcon from "../../../assets/icons/close-eye-icon";
+import EmailIcon from "../../../assets/icons/email-icon";
+import PasswordIcon from "../../../assets/icons/password-icon";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [isPasswordToogle, setIsPasswordToogle] = useState(false);
@@ -67,9 +68,15 @@ const LoginPage = () => {
                 </div>
                 <button
                   type='submit'
-                  className='bg-black rounded-md text-white p-2'>
+                  className='bg-black rounded-md text-white p-2 mb-4'>
                   Kirish
                 </button>
+                <div className='flex justify-between'>
+                  <p>Akauntingiz yo'qmi?</p>
+                  <Link to='/register' className='text-blue-500'>
+                    Ro'yhatdan o'tish
+                  </Link>
+                </div>
               </form>
             </div>
             <p className='absolute bottom-[2%] text-xs text-center w-[90%]'>

@@ -1,4 +1,4 @@
-const PersonIco = () => {
+const PersonIcon = () => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -11,4 +11,4 @@ const PersonIco = () => {
   );
 };
 
-export default PersonIco;
+export default PersonIcon;
