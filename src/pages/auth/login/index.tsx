@@ -1,13 +1,67 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import LoginImg from "/pictures/logo-login-background.png";
 import OpenEyeIcon from "../../../assets/icons/open-eye-icon";
 import CloseEyeIcon from "../../../assets/icons/close-eye-icon";
 import EmailIcon from "../../../assets/icons/email-icon";
 import PasswordIcon from "../../../assets/icons/password-icon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/auth";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import loginSchema from "../../../schema/login";
+import LoginFormValues from "../../../types/login";
+import Cookies from "js-cookie";
+import User from "../../../types/user";
+import request from "../../../server";
+import axios from "axios";
+import { ENDPOINT, TOKEN, USER, USER_ID } from "../../../constants";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const { setUser, setIsAuthenticated } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({ resolver: yupResolver(loginSchema) });
+
+  interface LoginDataTypes {
+    data: {
+      data: string;
+      user: User;
+    };
+  }
+
   const [isPasswordToogle, setIsPasswordToogle] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit: SubmitHandler<LoginFormValues> = async (values) => {
+    console.log("salom");
+    try {
+      setLoading(true);
+      const {
+        data: { data: loginData },
+      } = await axios.post<LoginDataTypes>(`${ENDPOINT}api/auth/login`, values);
+      request.defaults.headers.Authorization = `Bearer ${loginData?.data}`;
+      Cookies.set(USER_ID, loginData.user.id);
+      Cookies.set(TOKEN, loginData.data);
+      localStorage.setItem(USER, JSON.stringify(loginData.user));
+      setIsAuthenticated(true);
+      setUser(loginData.user);
+      if (loginData.user.role === "ADMIN") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      if (err) {
+        toast.error("User already exist!");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Fragment>
@@ -31,7 +85,7 @@ const LoginPage = () => {
                 </div>
               </div>
               <h2 className='text-3xl font-bold text-center'>Kirish</h2>
-              <form action='' method='POST' className='flex flex-col'>
+              <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='email'>
                     Email
@@ -40,9 +94,15 @@ const LoginPage = () => {
                     <EmailIcon />
                     <input
                       id='email'
+                      {...register("email")}
                       className='w-full outline-none h-8'
                       type='text'
                     />
+                    {errors?.email && (
+                      <p className='text-red-500 text-sm'>
+                        {errors.email.message}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className='mb-5'>
@@ -53,9 +113,15 @@ const LoginPage = () => {
                     <PasswordIcon />
                     <input
                       id='password'
+                      {...register("password")}
                       className='w-full outline-none h-8'
                       type={isPasswordToogle ? "text" : "password"}
                     />
+                    {errors?.password && (
+                      <p className='text-red-500 text-sm'>
+                        {errors.password.message}
+                      </p>
+                    )}
                     <button
                       className='outline-none p-1 rounded-md transition-all hover:bg-slate-200'
                       onClick={(e) => {
@@ -69,7 +135,7 @@ const LoginPage = () => {
                 <button
                   type='submit'
                   className='bg-black rounded-md text-white p-2 mb-4'>
-                  Kirish
+                  {loading ? "Kutilmoqda..." : "Kirish"}
                 </button>
                 <div className='flex justify-between'>
                   <p>Akauntingiz yo'qmi?</p>

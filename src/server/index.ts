@@ -18,11 +18,7 @@ request.interceptors.response.use(
     return response;
   },
   (err) => {
-    if (err?.message === "Network Error") {
-      toast.error(`${err?.message}`);
-    } else {
-      toast.error(`${err?.response?.data?.message}`);
-    }
+    toast.error(`${err?.response?.data?.message}`);
     return Promise.reject(err);
   }
 );

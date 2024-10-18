@@ -3,5 +3,6 @@ const Language = "birthdate-language";
 const TOKEN = "birthdate-token";
 const ENDPOINT = "http://localhost:8090/";
 const USER = "birthdate-user";
+const USER_ID = "birthdate-user-id";
 
-export { Theme, Language, TOKEN, ENDPOINT, USER };
+export { Theme, Language, TOKEN, ENDPOINT, USER, USER_ID };
