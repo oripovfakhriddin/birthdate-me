@@ -1,15 +1,55 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import OpenEyeIcon from "../../../assets/icons/open-eye-icon";
 import CloseEyeIcon from "../../../assets/icons/close-eye-icon";
 import EmailIcon from "../../../assets/icons/email-icon";
 import PasswordIcon from "../../../assets/icons/password-icon";
 import PersonIcon from "../../../assets/icons/person-icon";
 import DateIcon from "../../../assets/icons/date-icon";
-import { Link } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import registerSchema from "../../../schema/register";
+import RegisterFormValues from "../../../types/register";
+import Cookies from "js-cookie";
+import { ENDPOINT, TOKEN, USER } from "../../../constants";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../../context/auth";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [isPasswordToogle, setIsPasswordToogle] = useState(false);
   const [isPrePasswordToogle, setIsPrePasswordToogle] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { setIsAuthenticated, setUser } = useContext(AuthContext);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormValues>({
+    resolver: yupResolver(registerSchema),
+  });
+
+  const onSubmit: SubmitHandler<RegisterFormValues> = async (values) => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `${ENDPOINT}api/auth/registration`,
+        values
+      );
+      Cookies.set(TOKEN, data.token);
+      localStorage.setItem(USER, JSON.stringify(values));
+      toast.success(data.message);
+      setIsAuthenticated(true);
+      setUser(data);
+      navigate("/login");
+    } catch (err) {
+      toast.error("Kiritilgan ma'lumotlaringizni tekshiring!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Fragment>
@@ -32,7 +72,9 @@ const RegisterPage = () => {
               <h2 className='text-3xl font-bold text-center mb-5'>
                 Ro'yhatdan o'tish
               </h2>
-              <form className='flex flex-col md:grid md:grid-cols-2 md:gap-5'>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className='flex flex-col md:grid md:grid-cols-2 md:gap-5'>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='firstName'>
                     Ism
@@ -40,11 +82,17 @@ const RegisterPage = () => {
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <PersonIcon />
                     <input
+                      {...register("firstName")}
                       id='firstName'
                       className='w-full outline-none h-8'
                       type='text'
                     />
                   </div>
+                  {errors?.firstName && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.firstName.message}
+                    </p>
+                  )}
                 </div>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='lastName'>
@@ -53,11 +101,17 @@ const RegisterPage = () => {
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <PersonIcon />
                     <input
+                      {...register("lastName")}
                       id='lastName'
                       className='w-full outline-none h-8'
                       type='text'
                     />
                   </div>
+                  {errors?.lastName && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.lastName.message}
+                    </p>
+                  )}
                 </div>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='birthDate'>
@@ -66,11 +120,17 @@ const RegisterPage = () => {
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <DateIcon />
                     <input
+                      {...register("birthDate")}
                       id='birthDate'
                       className='w-full outline-none h-8'
                       type='date'
                     />
                   </div>
+                  {errors?.birthDate && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.birthDate.message}
+                    </p>
+                  )}
                 </div>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='email'>
@@ -79,11 +139,17 @@ const RegisterPage = () => {
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <EmailIcon />
                     <input
+                      {...register("email")}
                       id='email'
                       className='w-full outline-none h-8'
                       type='text'
                     />
                   </div>
+                  {errors?.email && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
                 <div className='mb-5'>
                   <label className='text-sm mb-1' htmlFor='password'>
@@ -92,10 +158,12 @@ const RegisterPage = () => {
                   <div className='flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1'>
                     <PasswordIcon />
                     <input
+                      {...register("password")}
                       id='password'
                       className='w-full outline-none h-8'
                       type={isPasswordToogle ? "text" : "password"}
                     />
+
                     <button
                       className='outline-none p-1 rounded-md transition-all hover:bg-slate-200'
                       onClick={(e) => {
@@ -105,6 +173,11 @@ const RegisterPage = () => {
                       {isPasswordToogle ? <OpenEyeIcon /> : <CloseEyeIcon />}
                     </button>
                   </div>
+                  {errors?.password && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
                 <div className='mb-5'>
                   <label className='text-sm mb-1' htmlFor='prePassword'>
@@ -113,10 +186,12 @@ const RegisterPage = () => {
                   <div className='flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1'>
                     <PasswordIcon />
                     <input
+                      {...register("prePassword")}
                       id='prePassword'
                       className='w-full outline-none h-8'
                       type={isPrePasswordToogle ? "text" : "password"}
                     />
+
                     <button
                       className='outline-none p-1 rounded-md transition-all hover:bg-slate-200'
                       onClick={(e) => {
@@ -126,11 +201,16 @@ const RegisterPage = () => {
                       {isPrePasswordToogle ? <OpenEyeIcon /> : <CloseEyeIcon />}
                     </button>
                   </div>
+                  {errors?.prePassword && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.prePassword.message}
+                    </p>
+                  )}
                 </div>
                 <button
                   type='submit'
                   className='bg-black rounded-md text-white p-2 col-span-2 mb-4 md:mb-0'>
-                  Ro'yhatdan o'tish
+                  {loading ? "Kutilmoqda" : "Ro'yhatdan o'tish"}
                 </button>
                 <div className='flex justify-between col-span-2'>
                   <p>Akauntingiz bormi?</p>
