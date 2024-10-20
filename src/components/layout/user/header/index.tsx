@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "/pictures/logo.png";
 import ThemeToggle from "../../../theme-toggle";
@@ -9,9 +9,11 @@ import HomeIcon from "../../../../assets/icons/home-icon";
 import ContactUsIcon from "../../../../assets/icons/contact-us-icon";
 import AboutUsIcon from "../../../../assets/icons/about-us-icon";
 import PersonIcon from "../../../../assets/icons/person-icon";
+import { LanguageContext } from "../../../../context/language";
 
 const UserHeader = () => {
   const [isNavbar, setIsNavbar] = useState(false);
+  const { langType, changeLanguage, lang } = useContext(LanguageContext);
   return (
     <header className='fixed top-0 z-20 w-full bg-gray-200 dark:bg-gray-900'>
       <nav>
@@ -31,10 +33,12 @@ const UserHeader = () => {
           <div className='flex items-center md:gap-2 gap-1 md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse'>
             <select
               id='languages'
+              value={langType ? (langType as "uzb" | "rus" | "eng") : "uzb"}
+              onChange={changeLanguage}
               className='border cursor-pointer border-gray-400 outline-none bg-gray-200 text-gray-900 text-sm rounded-lg  focus:ring-blue-500  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 '>
-              <option value='rus'>RU</option>
-              <option value='eng'>EN</option>
-              <option value='uzb'>UZ</option>
+              <option value='rus'>RUS</option>
+              <option value='eng'>ENG</option>
+              <option value='uzb'>UZB</option>
             </select>
             <ThemeToggle />
             <NavLink
@@ -73,10 +77,10 @@ const UserHeader = () => {
                   onClick={() => {
                     setIsNavbar(!isNavbar);
                   }}
-                  className='flex items-center  gap-1 py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
+                  className='flex items-center  gap-1 py-2 px-3 md:p-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
                   aria-current='page'>
                   <HomeIcon className='md:hidden' />
-                  <span>Bosh sahifa</span>
+                  <span>{lang?.home}</span>
                 </NavLink>
               </li>
               <li>
@@ -85,9 +89,9 @@ const UserHeader = () => {
                   onClick={() => {
                     setIsNavbar(!isNavbar);
                   }}
-                  className='flex items-center  gap-1 py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
+                  className='flex items-center  gap-1 py-2 px-3 md:p-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
                   <ContactUsIcon className='md:hidden' />
-                  <span>Bog'lanish</span>
+                  <span>{lang?.contact}</span>
                 </NavLink>
               </li>
               <li>
@@ -96,9 +100,9 @@ const UserHeader = () => {
                   onClick={() => {
                     setIsNavbar(!isNavbar);
                   }}
-                  className='flex items-center  gap-1 py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
+                  className='flex items-center  gap-1 py-2 px-3 md:p-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
                   <AboutUsIcon className='md:hidden' />
-                  <span> Biz haqimizda</span>
+                  <span>{lang?.about}</span>
                 </NavLink>
               </li>
               <li className='md:hidden'>
@@ -107,7 +111,7 @@ const UserHeader = () => {
                   type='button'
                   className='flex items-center gap-2 py-2 px-3 md:p-0 w-full text-gray-900 rounded hover:bg-red-200 md:hover:bg-transparent  dark:hover:bg-red-300  md:dark:hover:bg-transparent dark:border-gray-700'>
                   <LogOutIcon />
-                  <span className=' text-[#EA3323]'>Chiqish</span>
+                  <span className=' text-[#EA3323]'>{lang.logout}</span>
                 </button>
               </li>
             </ul>

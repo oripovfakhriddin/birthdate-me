@@ -1,5 +1,15 @@
+import { Fragment, useContext } from "react";
+import { LanguageContext } from "../../../context/language";
+
 const AccountPage = () => {
-  return <h1 className='text-center text-6xl'>AccountPage</h1>;
+  const { lang } = useContext(LanguageContext);
+  return (
+    <Fragment>
+      <section>
+        <div className=''>{lang.lorem}</div>
+      </section>
+    </Fragment>
+  );
 };
 
 export default AccountPage;
