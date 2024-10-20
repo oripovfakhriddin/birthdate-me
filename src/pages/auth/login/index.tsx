@@ -16,10 +16,12 @@ import request from "../../../server";
 import axios from "axios";
 import { ENDPOINT, TOKEN, USER, USER_ID } from "../../../constants";
 import { toast } from "react-toastify";
+import { LanguageContext } from "../../../context/language";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
+  const { lang } = useContext(LanguageContext);
   const {
     register,
     handleSubmit,
@@ -74,8 +76,7 @@ const LoginPage = () => {
             <div className='md:w-[330px] '>
               <div className='flex justify-center items-center flex-col mb-6'>
                 <h1 className='text-xs font-semibold text-center mb-3 w-72'>
-                  MUHAMMAD AL-XORAZMIY NOMIDAGI TOSHKENT AXBOROT TEXNOLOGIYALARI
-                  UNIVERSITETI
+                  {lang.tuit}
                 </h1>
                 <div className=' w-20 '>
                   <img
@@ -88,7 +89,7 @@ const LoginPage = () => {
               <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='email'>
-                    Email
+                    {lang.email}
                   </label>
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <EmailIcon />
@@ -107,7 +108,7 @@ const LoginPage = () => {
                 </div>
                 <div className='mb-5'>
                   <label className='text-sm mb-1' htmlFor='password'>
-                    Parol
+                    {lang.password}
                   </label>
                   <div className='flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1'>
                     <PasswordIcon />
@@ -135,12 +136,12 @@ const LoginPage = () => {
                 <button
                   type='submit'
                   className='bg-black rounded-md text-white p-2 mb-4'>
-                  {loading ? "Kutilmoqda..." : "Kirish"}
+                  {loading ? `${lang.waiting}...` : lang.login}
                 </button>
                 <div className='flex justify-between'>
                   <p>Akauntingiz yo'qmi?</p>
                   <Link to='/register' className='text-blue-500'>
-                    Ro'yhatdan o'tish
+                    {lang.registration}
                   </Link>
                 </div>
               </form>
