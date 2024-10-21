@@ -1,6 +1,7 @@
-const LogOutIcon = () => {
+const LogOutIcon = ({ className }: { className: string }) => {
   return (
     <svg
+      className={className}
       xmlns='http://www.w3.org/2000/svg'
       height='32px'
       viewBox='0 -960 960 960'
