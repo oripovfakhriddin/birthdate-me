@@ -37,7 +37,6 @@ function App() {
                 isAuthenticated ? <AccountPage /> : <Navigate to={"/login"} />
               }
             />
-
             <Route
               path='/account'
               element={
