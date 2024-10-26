@@ -15,6 +15,7 @@ import { ENDPOINT, TOKEN, USER } from "../../../constants";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/auth";
+import { LanguageContext } from "../../../context/language";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const RegisterPage = () => {
   const [isPrePasswordToogle, setIsPrePasswordToogle] = useState(false);
   const [loading, setLoading] = useState(false);
   const { setIsAuthenticated, setUser } = useContext(AuthContext);
+  const { lang } = useContext(LanguageContext);
 
   const {
     register,
@@ -115,7 +117,7 @@ const RegisterPage = () => {
                 </div>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='birthDate'>
-                    Tug'ilgan kun
+                   {lang.birthdate}
                   </label>
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <DateIcon />
@@ -134,7 +136,7 @@ const RegisterPage = () => {
                 </div>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='email'>
-                    Email
+                    {lang.email}
                   </label>
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <EmailIcon />
@@ -153,7 +155,7 @@ const RegisterPage = () => {
                 </div>
                 <div className='mb-5'>
                   <label className='text-sm mb-1' htmlFor='password'>
-                    Parol
+                    {lang.password}
                   </label>
                   <div className='flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1'>
                     <PasswordIcon />
@@ -181,7 +183,7 @@ const RegisterPage = () => {
                 </div>
                 <div className='mb-5'>
                   <label className='text-sm mb-1' htmlFor='prePassword'>
-                    Parolni tasdiqlash
+                    {lang.confirmPassword}
                   </label>
                   <div className='flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1'>
                     <PasswordIcon />
@@ -213,16 +215,15 @@ const RegisterPage = () => {
                   {loading ? "Kutilmoqda" : "Ro'yhatdan o'tish"}
                 </button>
                 <div className='flex justify-between col-span-2'>
-                  <p>Akauntingiz bormi?</p>
+                  <p>{lang.doYouHaveAccount}</p>
                   <Link to='/register' className='text-blue-500'>
-                    Kirish
+                    {lang.login}
                   </Link>
                 </div>
               </form>
             </div>
             <p className='absolute md:bottom-[-10%] bottom-[0] text-xs text-center w-[90%]'>
-              Copyright © 2021 of Tashkent University of Information
-              Technologies
+              Copyright © 2024 of Juniors Team
             </p>
           </div>
         </div>
