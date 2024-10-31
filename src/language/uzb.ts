@@ -10,6 +10,7 @@ const UZB = {
   email: "Email",
   password: "Parol",
   doYouHaveAccount: "Akauntingiz bormi?",
+  dontHaveAccount: "Akauntingiz yo'qmi?",
   confirmPassword: "Parolni tasdiqlash",
   registration: "Ro'yhatdan o'tish",
   lorem:

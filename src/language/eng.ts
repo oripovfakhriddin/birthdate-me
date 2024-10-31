@@ -10,6 +10,7 @@ const ENG = {
   password: "Password",
   registration: "Register",
   doYouHaveAccount: "Do you have an account?",
+  dontHaveAccount: "Don't have an account?",
   confirmPassword: "Confirm password",
   tuit: "TASHKENT UNIVERSITY OF INFORMATION TECHNOLOGY NAMED MUHAMMAD AL-KHARAZMI",
   lorem:

@@ -10,6 +10,7 @@ const RUS = {
   email: "Электронная почта",
   password: "Пароль",
   doYouHaveAccount: "У вас есть учетная запись?",
+  dontHaveAccount: "У вас нет учетной записи?",
   confirmPassword: "Подтвердите пароль",
   registration: "Регистрация",
   lorem:

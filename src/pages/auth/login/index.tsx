@@ -13,8 +13,8 @@ import LoginFormValues from "../../../types/login";
 import Cookies from "js-cookie";
 import User from "../../../types/user";
 import request from "../../../server";
-import axios from "axios";
-import { ENDPOINT, TOKEN, USER, USER_ID } from "../../../constants";
+import axios, { AxiosError } from "axios";
+import { ENDPOINT, TOKEN, USER } from "../../../constants";
 import { toast } from "react-toastify";
 import { LanguageContext } from "../../../context/language";
 
@@ -29,37 +29,42 @@ const LoginPage = () => {
   } = useForm<LoginFormValues>({ resolver: yupResolver(loginSchema) });
 
   interface LoginDataTypes {
-    data: {
-      data: string;
-      user: User;
-    };
+    data: User;
+    code: number;
+    token: string;
+    message: string;
+    success: boolean;
+  }
+  interface ErrorResponse {
+    message: string;
   }
 
   const [isPasswordToogle, setIsPasswordToogle] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (values) => {
-    console.log("salom");
     try {
       setLoading(true);
-      const {
-        data: { data: loginData },
-      } = await axios.post<LoginDataTypes>(`${ENDPOINT}api/auth/login`, values);
-      request.defaults.headers.Authorization = `Bearer ${loginData?.data}`;
-      Cookies.set(USER_ID, loginData.user.id);
-      Cookies.set(TOKEN, loginData.data);
-      localStorage.setItem(USER, JSON.stringify(loginData.user));
+      const { data } = await axios.post<LoginDataTypes>(
+        `${ENDPOINT}api/auth/login`,
+        values
+      );
+
+      request.defaults.headers.Authorization = `Bearer ${data?.token}`;
+
+      Cookies.set(TOKEN, data?.token);
+      localStorage.setItem(USER, JSON.stringify(data.data));
       setIsAuthenticated(true);
-      setUser(loginData.user);
-      if (loginData.user.role === "ADMIN") {
-        navigate("/admin/dashboard");
+      setUser(data.data);
+      if (data.code === 0) {
+        navigate("/admin");
       } else {
         navigate("/");
       }
     } catch (err) {
-      if (err) {
-        toast.error("User already exist!");
-      }
+      const error = err as AxiosError;
+      const message = error.response?.data as ErrorResponse;
+      toast.error(message?.message);
     } finally {
       setLoading(false);
     }
@@ -139,7 +144,7 @@ const LoginPage = () => {
                   {loading ? `${lang.waiting}...` : lang.login}
                 </button>
                 <div className='flex justify-between'>
-                  <p>Akauntingiz yo'qmi?</p>
+                  <p>{lang.dontHaveAccount}</p>
                   <Link to='/register' className='text-blue-500'>
                     {lang.registration}
                   </Link>
