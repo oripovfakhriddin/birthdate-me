@@ -34,6 +34,7 @@ const RegisterPage = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (values) => {
+    console.log(values)
     try {
       setLoading(true);
       const { data } = await axios.post(
@@ -61,8 +62,7 @@ const RegisterPage = () => {
             <div>
               <div className='flex justify-center items-center flex-col mb-6'>
                 <h1 className='text-xs font-semibold text-center mb-3 w-72'>
-                  MUHAMMAD AL-XORAZMIY NOMIDAGI TOSHKENT AXBOROT TEXNOLOGIYALARI
-                  UNIVERSITETI
+                  {lang.tuit}
                 </h1>
                 <div className=' w-20 '>
                   <img
@@ -72,7 +72,7 @@ const RegisterPage = () => {
                 </div>
               </div>
               <h2 className='text-3xl font-bold text-center mb-5'>
-                Ro'yhatdan o'tish
+                {lang.registration}
               </h2>
               <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -117,7 +117,7 @@ const RegisterPage = () => {
                 </div>
                 <div className='mb-5'>
                   <label className=' text-sm mb-1' htmlFor='birthDate'>
-                   {lang.birthdate}
+                    {lang.birthdate}
                   </label>
                   <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
                     <DateIcon />
@@ -216,7 +216,7 @@ const RegisterPage = () => {
                 </button>
                 <div className='flex justify-between col-span-2'>
                   <p>{lang.doYouHaveAccount}</p>
-                  <Link to='/register' className='text-blue-500'>
+                  <Link to='/login' className='text-blue-500'>
                     {lang.login}
                   </Link>
                 </div>

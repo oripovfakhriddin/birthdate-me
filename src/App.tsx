@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
@@ -11,13 +11,10 @@ import AdminAccountPage from "./pages/admin/account";
 import AdminUsersPage from "./pages/admin/users";
 import AboutPage from "./pages/user/about";
 import ContactPage from "./pages/user/contact";
+import { AuthContext } from "./context/auth";
 
 function App() {
-  const isAuthenticated = true;
-  const user = {
-    role: "ADMIN",
-  };
-  // const { isAuthenticated, user } = useContext(AuthContext);
+  const { isAuthenticated, user } = useContext(AuthContext);
   return (
     <Fragment>
       <BrowserRouter>
@@ -48,7 +45,7 @@ function App() {
           <Route
             path='/admin'
             element={
-              isAuthenticated && user?.role === "ADMIN" ? (
+              isAuthenticated && user?.code === 0 ? (
                 <AdminLayoutPage />
               ) : (
                 <Navigate to='/login' />

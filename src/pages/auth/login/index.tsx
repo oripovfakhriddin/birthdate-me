@@ -19,9 +19,11 @@ import { toast } from "react-toastify";
 import { LanguageContext } from "../../../context/language";
 
 const LoginPage = () => {
+
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
   const { lang } = useContext(LanguageContext);
+
   const {
     register,
     handleSubmit,
@@ -30,11 +32,11 @@ const LoginPage = () => {
 
   interface LoginDataTypes {
     data: User;
-    code: number;
     token: string;
     message: string;
     success: boolean;
   }
+
   interface ErrorResponse {
     message: string;
   }
@@ -56,7 +58,7 @@ const LoginPage = () => {
       localStorage.setItem(USER, JSON.stringify(data.data));
       setIsAuthenticated(true);
       setUser(data.data);
-      if (data.code === 0) {
+      if (data.user.code === 1) {
         navigate("/admin");
       } else {
         navigate("/");
@@ -152,8 +154,7 @@ const LoginPage = () => {
               </form>
             </div>
             <p className='absolute bottom-[2%] text-xs text-center w-[90%]'>
-              Copyright © 2021 of Tashkent University of Information
-              Technologies
+              Copyright © 2024 of Juniors Team
             </p>
           </div>
         </div>

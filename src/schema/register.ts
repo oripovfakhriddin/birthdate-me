@@ -8,8 +8,8 @@ const registerSchema = yup.object().shape({
     .required("To'ldirishingiz shart!")
     .email("Email kiritishingiz shart!"),
   password: yup.string().required("To'ldirishingiz shart!"),
-  prePassword: yup.object().required("To'ldirishingiz shart!"),
-  birthDate: yup.object().required("To'ldirishingiz shart!"),
+  prePassword: yup.string().required("To'ldirishingiz shart!"),
+  birthDate: yup.string().required("To'ldirishingiz shart!"),
 });
 
 export default registerSchema;

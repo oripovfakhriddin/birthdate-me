@@ -1,10 +1,8 @@
 interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  number: string;
-  role: string;
-  gender: string;
+  untilBirthDate: number;
+  firstname: string;
+  lastname: string;
+  birthDate: string;
 }
 
 export default User;
