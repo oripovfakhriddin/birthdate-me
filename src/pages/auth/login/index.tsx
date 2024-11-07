@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 import { LanguageContext } from "../../../context/language";
 
 const LoginPage = () => {
-
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
   const { lang } = useContext(LanguageContext);
@@ -58,7 +57,7 @@ const LoginPage = () => {
       localStorage.setItem(USER, JSON.stringify(data.data));
       setIsAuthenticated(true);
       setUser(data.data);
-      if (data.user.code === 1) {
+      if (data?.user?.role === "ADMIN") {
         navigate("/admin");
       } else {
         navigate("/");

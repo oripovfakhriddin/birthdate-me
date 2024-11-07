@@ -6,13 +6,16 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContextProvider from "./context/auth.tsx";
 import LanguageContextProvider from "./context/language.tsx";
 import { ToastContainer } from "react-toastify";
+import StoreProvider from "./redux/store/index.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <LanguageContextProvider>
       <AuthContextProvider>
-        <ToastContainer />
-        <App />
+        <StoreProvider>
+          <ToastContainer />
+          <App />
+        </StoreProvider>
       </AuthContextProvider>
     </LanguageContextProvider>
   </StrictMode>

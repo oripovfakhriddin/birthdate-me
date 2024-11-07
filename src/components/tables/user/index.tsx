@@ -1,199 +1,57 @@
+import User from "../../../types/user";
 
-
-const UsersTableForAdmin = () => {
+const UsersTableForAdmin = ({ users }: { users: User[] }) => {
   return (
     <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
       <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
         <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
           <tr>
             <th scope='col' className='px-6 py-3'>
-              Product name
+              Firstname
             </th>
             <th scope='col' className='px-6 py-3'>
-              Color
+              Lastname
             </th>
-            <th scope='col' className='px-6 py-3'>
-              Category
+            <th scope='col' className='px-6 py-3 text-center'>
+              Birthdate
             </th>
-            <th scope='col' className='px-6 py-3'>
-              Price
+            <th scope='col' className='px-6 py-3 text-center'>
+              Until birthdate
             </th>
-            <th scope='col' className='px-6 py-3'>
+            <th scope='col' className='px-6 py-3 text-end'>
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Apple MacBook Pro 17"
-            </th>
-            <td className='px-6 py-4'>Silver</td>
-            <td className='px-6 py-4'>Laptop</td>
-            <td className='px-6 py-4'>$2999</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Microsoft Surface Pro
-            </th>
-            <td className='px-6 py-4'>White</td>
-            <td className='px-6 py-4'>Laptop PC</td>
-            <td className='px-6 py-4'>$1999</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Magic Mouse 2
-            </th>
-            <td className='px-6 py-4'>Black</td>
-            <td className='px-6 py-4'>Accessories</td>
-            <td className='px-6 py-4'>$99</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Apple Watch
-            </th>
-            <td className='px-6 py-4'>Black</td>
-            <td className='px-6 py-4'>Watches</td>
-            <td className='px-6 py-4'>$199</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Apple iMac
-            </th>
-            <td className='px-6 py-4'>Silver</td>
-            <td className='px-6 py-4'>PC</td>
-            <td className='px-6 py-4'>$2999</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Apple AirPods
-            </th>
-            <td className='px-6 py-4'>White</td>
-            <td className='px-6 py-4'>Accessories</td>
-            <td className='px-6 py-4'>$399</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              iPad Pro
-            </th>
-            <td className='px-6 py-4'>Gold</td>
-            <td className='px-6 py-4'>Tablet</td>
-            <td className='px-6 py-4'>$699</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Magic Keyboard
-            </th>
-            <td className='px-6 py-4'>Black</td>
-            <td className='px-6 py-4'>Accessories</td>
-            <td className='px-6 py-4'>$99</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              Smart Folio iPad Air
-            </th>
-            <td className='px-6 py-4'>Blue</td>
-            <td className='px-6 py-4'>Accessories</td>
-            <td className='px-6 py-4'>$79</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-            <th
-              scope='row'
-              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
-              AirTag
-            </th>
-            <td className='px-6 py-4'>Silver</td>
-            <td className='px-6 py-4'>Accessories</td>
-            <td className='px-6 py-4'>$29</td>
-            <td className='px-6 py-4'>
-              <a
-                href='#'
-                className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>
-                Edit
-              </a>
-            </td>
-          </tr>
+          {users.map((user, index) => {
+            return (
+              <tr
+                key={index}
+                className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
+                <th
+                  scope='row'
+                  className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
+                  {user.firstName}
+                </th>
+                <td className='px-6 py-4'>{user.lastName}</td>
+                <td className='px-6 py-4 !min-w-[120px] text-center'>{user.birthDate}</td>
+                <td className='px-6 py-4 text-center'>{user.untilBirthDate}</td>
+                <td className='py-4 pr-6 flex gap-2 justify-end items-center text-end'>
+                  <button
+                    type='button'
+                    className=' text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5'>
+                    Edit
+                  </button>
+                  <button
+                    type='button'
+                    className=' text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700'>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <nav
@@ -209,7 +67,7 @@ const UsersTableForAdmin = () => {
             1000
           </span>
         </span>
-        <ul className='inline-flex -space-x-px rtl:space-x-reverse text-sm h-8'>
+        <ul className='inline-flex -space-x-px  text-sm h-8'>
           <li>
             <a
               href='#'

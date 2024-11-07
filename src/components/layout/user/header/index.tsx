@@ -10,7 +10,7 @@ import ContactUsIcon from "../../../../assets/icons/contact-us-icon";
 import AboutUsIcon from "../../../../assets/icons/about-us-icon";
 import PersonIcon from "../../../../assets/icons/person-icon";
 import { LanguageContext } from "../../../../context/language";
-import Modal from "../../../modal";
+import LogOutModal from "../../../logout-modal";
 
 const UserHeader = () => {
   const [isNavbar, setIsNavbar] = useState(false);
@@ -48,8 +48,8 @@ const UserHeader = () => {
               </select>
               <ThemeToggle />
               <NavLink
-                to={"account"}
-                className='p-1 text-gray-500 rounded-lg transition  hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none'>
+                to='/account'
+                className='p-1 text-black rounded-lg transition  hover:bg-gray-300 dark:text-white dark:hover:bg-gray-700 focus:outline-none'>
                 <PersonIcon />
               </NavLink>
               <button
@@ -128,7 +128,7 @@ const UserHeader = () => {
         </nav>
       </header>
       {isOpen && (
-        <Modal
+        <LogOutModal
           isOpen={isOpen}
           text='Tizimdan chiqishga ishonchingiz komilmi?'
           icon={<LogOutIcon className='mx-auto !w-10 !h-10 mt-10 mb-5' />}

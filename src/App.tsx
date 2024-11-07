@@ -15,6 +15,7 @@ import { AuthContext } from "./context/auth";
 
 function App() {
   const { isAuthenticated, user } = useContext(AuthContext);
+
   return (
     <Fragment>
       <BrowserRouter>
@@ -24,28 +25,21 @@ function App() {
             <Route path='/register' element={<RegisterPage />} />
           </Route>
 
-          <Route path='/' element={<UserLayout />}>
+          <Route
+            path='/'
+            element={
+              isAuthenticated ? <UserLayout /> : <Navigate to={"/login"} />
+            }>
             <Route index element={<HomePage />} />
             <Route path='contact-us' element={<ContactPage />} />
             <Route path='about-me' element={<AboutPage />} />
-            <Route
-              path='/order'
-              element={
-                isAuthenticated ? <AccountPage /> : <Navigate to={"/login"} />
-              }
-            />
-            <Route
-              path='/account'
-              element={
-                isAuthenticated ? <AccountPage /> : <Navigate to={"/login"} />
-              }
-            />
+            <Route path='/account' element={<AccountPage />} />
           </Route>
 
           <Route
             path='/admin'
             element={
-              isAuthenticated && user?.code === 0 ? (
+              isAuthenticated && user?.role === "ADMIN" ? (
                 <AdminLayoutPage />
               ) : (
                 <Navigate to='/login' />
