@@ -57,7 +57,8 @@ const LoginPage = () => {
       localStorage.setItem(USER, JSON.stringify(data.data));
       setIsAuthenticated(true);
       setUser(data.data);
-      if (data?.user?.role === "ADMIN") {
+      // data ichidagi user bo'lishi kerak edi
+      if (data?.data?.role === "ADMIN") {
         navigate("/admin");
       } else {
         navigate("/");

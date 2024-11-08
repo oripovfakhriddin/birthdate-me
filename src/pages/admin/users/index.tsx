@@ -20,7 +20,7 @@ const AdminUsersPage = () => {
   return (
     <Fragment>
       <h1 className='text-center text-xl'>AdminUsersPage: {total}</h1>
-      <UsersTableForAdmin users={users} />
+      <UsersTableForAdmin users={users} total={total} />
     </Fragment>
   );
 };
