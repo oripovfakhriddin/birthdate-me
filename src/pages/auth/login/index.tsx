@@ -30,7 +30,7 @@ const LoginPage = () => {
   } = useForm<LoginFormValues>({ resolver: yupResolver(loginSchema) });
 
   interface LoginDataTypes {
-    data: User;
+    user: User;
     token: string;
     message: string;
     success: boolean;
@@ -54,11 +54,10 @@ const LoginPage = () => {
       request.defaults.headers.Authorization = `Bearer ${data?.token}`;
 
       Cookies.set(TOKEN, data?.token);
-      localStorage.setItem(USER, JSON.stringify(data.data));
+      localStorage.setItem(USER, JSON.stringify(data.user));
       setIsAuthenticated(true);
-      setUser(data.data);
-      // data ichidagi user bo'lishi kerak edi
-      if (data?.data?.role === "ADMIN") {
+      setUser(data.user);
+      if (data?.user?.role === "ADMIN") {
         navigate("/admin");
       } else {
         navigate("/");

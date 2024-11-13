@@ -15,10 +15,32 @@ const initialState: initialStateTypes = {
   total: 0,
 };
 
-export const getUsers = createAsyncThunk("users/fetching", async () => {
-  const { data } = await request.get("api/user/allUsers");
-  return data?.user;
-});
+interface PayloadTypes {
+  users: User[];
+  total: number;
+}
+
+export const getUsers = createAsyncThunk(
+  "users/fetching",
+  async ({
+    size,
+    currentPage,
+    search,
+  }: {
+    size: string;
+    currentPage: string;
+    search: string;
+  }) => {
+    const { data } = await request.get("api/user/allUsers", {
+      params: {
+        size,
+        page: currentPage,
+        userName: search,
+      },
+    });
+    return data;
+  }
+);
 
 export const userSlice = createSlice({
   initialState,
@@ -35,10 +57,10 @@ export const userSlice = createSlice({
       })
       .addCase(
         getUsers.fulfilled,
-        (state, { payload }: PayloadAction<User[]>) => {
+        (state, { payload }: PayloadAction<PayloadTypes>) => {
           state.loading = false;
-          state.users = payload;
-          state.total = payload.length;
+          state.users = payload?.users;
+          state.total = payload?.total;
         }
       )
       .addCase(getUsers.rejected, (state) => {

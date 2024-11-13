@@ -1,19 +1,19 @@
 import { Fragment, useContext, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
 import OpenEyeIcon from "../../../assets/icons/open-eye-icon";
 import CloseEyeIcon from "../../../assets/icons/close-eye-icon";
 import EmailIcon from "../../../assets/icons/email-icon";
 import PasswordIcon from "../../../assets/icons/password-icon";
 import PersonIcon from "../../../assets/icons/person-icon";
 import DateIcon from "../../../assets/icons/date-icon";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import registerSchema from "../../../schema/register";
 import RegisterFormValues from "../../../types/register";
-import Cookies from "js-cookie";
 import { ENDPOINT, TOKEN, USER } from "../../../constants";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/auth";
 import { LanguageContext } from "../../../context/language";
 
@@ -34,7 +34,6 @@ const RegisterPage = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (values) => {
-    console.log(values)
     try {
       setLoading(true);
       const { data } = await axios.post(
