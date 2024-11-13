@@ -12,6 +12,7 @@ import AdminUsersPage from "./pages/admin/users";
 import AboutPage from "./pages/user/about";
 import ContactPage from "./pages/user/contact";
 import { AuthContext } from "./context/auth";
+import PageNotFound from "./pages/page-not-found";
 
 function App() {
   const { isAuthenticated, user } = useContext(AuthContext);
@@ -21,34 +22,37 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route>
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Route>
 
           <Route
-            path='/'
+            path="/"
             element={
               isAuthenticated ? <UserLayout /> : <Navigate to={"/login"} />
-            }>
+            }
+          >
             <Route index element={<HomePage />} />
-            <Route path='contact-us' element={<ContactPage />} />
-            <Route path='about-me' element={<AboutPage />} />
-            <Route path='/account' element={<AccountPage />} />
+            <Route path="contact-us" element={<ContactPage />} />
+            <Route path="about-me" element={<AboutPage />} />
+            <Route path="/account" element={<AccountPage />} />
           </Route>
 
           <Route
-            path='/admin'
+            path="/admin"
             element={
               isAuthenticated && user?.role === "ADMIN" ? (
                 <AdminLayoutPage />
               ) : (
-                <Navigate to='/login' />
+                <Navigate to="/login" />
               )
-            }>
+            }
+          >
             <Route index element={<AdminDashboardPage />} />
-            <Route path='accounts' element={<AdminAccountPage />} />
-            <Route path='users' element={<AdminUsersPage />} />
+            <Route path="accounts" element={<AdminAccountPage />} />
+            <Route path="users" element={<AdminUsersPage />} />
           </Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </Fragment>
