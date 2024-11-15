@@ -17,11 +17,12 @@ import axios, { AxiosError } from "axios";
 import { ENDPOINT, TOKEN, USER } from "../../../constants";
 import { toast } from "react-toastify";
 import { LanguageContext } from "../../../context/language";
+import ThemeToggle from "../../../components/theme-toggle";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useContext(AuthContext);
-  const { lang } = useContext(LanguageContext);
+  const { lang, langType, changeLanguage } = useContext(LanguageContext);
 
   const {
     register,
@@ -73,7 +74,20 @@ const LoginPage = () => {
 
   return (
     <Fragment>
-      <section className="h-screen">
+      <section className="h-screen relative">
+        <div className="absolute flex items-center gap-2 z-50 end-2 top-2">
+          <select
+            id="languages"
+            value={langType ? (langType as "uzb" | "rus" | "eng") : "uzb"}
+            onChange={changeLanguage}
+            className="border cursor-pointer border-gray-400 outline-none bg-gray-200 text-gray-900 text-sm rounded-lg  focus:ring-blue-500  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 "
+          >
+            <option value="rus">RUS</option>
+            <option value="eng">ENG</option>
+            <option value="uzb">UZB</option>
+          </select>
+          <ThemeToggle />
+        </div>
         <div className="flex items-center justify-between h-full w-full">
           <div className="md:flex items-center hidden  justify-center relative h-full w-1/2 bg-black">
             <img className="w-3/4" src={LoginImg} alt="img for login" />
@@ -81,7 +95,7 @@ const LoginPage = () => {
           <div className="flex items-center justify-center relative  md:w-1/2 w-full h-full p-10">
             <div className="md:w-[330px] ">
               <div className="flex justify-center items-center flex-col mb-6">
-                <h1 className="text-xs font-semibold text-center mb-3 w-72">
+                <h1 className="text-xs font-semibold text-center mb-3 w-72 dark:text-white">
                   {lang.tuit}
                 </h1>
                 <div className=" w-20 ">
@@ -91,18 +105,23 @@ const LoginPage = () => {
                   />
                 </div>
               </div>
-              <h2 className="text-3xl font-bold text-center">{lang.login}</h2>
+              <h2 className="text-3xl font-bold text-center dark:text-white">
+                {lang.login}
+              </h2>
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
                 <div className="mb-5">
-                  <label className=" text-sm mb-1" htmlFor="email">
+                  <label
+                    className=" text-sm mb-1 dark:text-white"
+                    htmlFor="email"
+                  >
                     {lang.email}
                   </label>
-                  <div className="flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1">
+                  <div className="flex dark:text-white items-center gap-2 border-2 rounded border-gray-600 px-2 py-1">
                     <EmailIcon />
                     <input
                       id="email"
                       {...register("email")}
-                      className="w-full outline-none h-8"
+                      className="w-full outline-none  h-8 dark:text-white  dark:bg-gray-800"
                       type="text"
                     />
                     {errors?.email && (
@@ -113,15 +132,18 @@ const LoginPage = () => {
                   </div>
                 </div>
                 <div className="mb-5">
-                  <label className="text-sm mb-1" htmlFor="password">
+                  <label
+                    className="text-sm mb-1 dark:text-white"
+                    htmlFor="password"
+                  >
                     {lang.password}
                   </label>
-                  <div className="flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 dark:text-white border-2 rounded-md border-gray-600 px-2 py-1">
                     <PasswordIcon />
                     <input
                       id="password"
                       {...register("password")}
-                      className="w-full outline-none h-8"
+                      className="w-full outline-none h-8 dark:text-white  dark:bg-gray-800"
                       type={isPasswordToogle ? "text" : "password"}
                     />
                     {errors?.password && (
@@ -130,7 +152,7 @@ const LoginPage = () => {
                       </p>
                     )}
                     <button
-                      className="outline-none p-1 rounded-md transition-all hover:bg-slate-200"
+                      className="outline-none p-1 rounded-md transition-all dark:text-white hover:bg-slate-200"
                       onClick={(e) => {
                         e.preventDefault();
                         setIsPasswordToogle(!isPasswordToogle);
@@ -142,11 +164,11 @@ const LoginPage = () => {
                 </div>
                 <button
                   type="submit"
-                  className="bg-black rounded-md text-white p-2 mb-4"
+                  className="bg-black rounded-md text-white p-2 mb-4 dark:bg-blue-800"
                 >
                   {loading ? `${lang.waiting}...` : lang.login}
                 </button>
-                <div className="flex justify-between">
+                <div className="flex justify-between dark:text-white">
                   <p>{lang.dontHaveAccount}</p>
                   <Link to="/register" className="text-blue-500">
                     {lang.registration}
@@ -154,7 +176,7 @@ const LoginPage = () => {
                 </div>
               </form>
             </div>
-            <p className="absolute bottom-[2%] text-xs text-center w-[90%]">
+            <p className="absolute bottom-[2%] text-xs text-center w-[90%] dark:text-white">
               Copyright © 2024 of Juniors Team
             </p>
           </div>
