@@ -28,10 +28,11 @@ const ThemeToggle = () => {
     <Fragment>
       <div>
         <button
-          className='p-1 text-black rounded-lg transition hover:bg-gray-300 dark:text-white dark:hover:bg-gray-700 focus:outline-none'
+          className="p-1 text-black rounded-lg transition hover:bg-gray-300 dark:text-white dark:hover:bg-gray-700 focus:outline-none"
           onClick={() => {
             setDarkMode(!darkMode);
-          }}>
+          }}
+        >
           {darkMode ? <LightIcon /> : <DarkIcon />}
         </button>
       </div>

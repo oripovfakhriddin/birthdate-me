@@ -73,86 +73,88 @@ const LoginPage = () => {
 
   return (
     <Fragment>
-      <section className='h-screen'>
-        <div className='flex items-center justify-between h-full w-full'>
-          <div className='md:flex items-center hidden  justify-center relative h-full w-1/2 bg-black'>
-            <img className='w-3/4' src={LoginImg} alt='img for login' />
+      <section className="h-screen">
+        <div className="flex items-center justify-between h-full w-full">
+          <div className="md:flex items-center hidden  justify-center relative h-full w-1/2 bg-black">
+            <img className="w-3/4" src={LoginImg} alt="img for login" />
           </div>
-          <div className='flex items-center justify-center relative  md:w-1/2 w-full h-full p-10'>
-            <div className='md:w-[330px] '>
-              <div className='flex justify-center items-center flex-col mb-6'>
-                <h1 className='text-xs font-semibold text-center mb-3 w-72'>
+          <div className="flex items-center justify-center relative  md:w-1/2 w-full h-full p-10">
+            <div className="md:w-[330px] ">
+              <div className="flex justify-center items-center flex-col mb-6">
+                <h1 className="text-xs font-semibold text-center mb-3 w-72">
                   {lang.tuit}
                 </h1>
-                <div className=' w-20 '>
+                <div className=" w-20 ">
                   <img
-                    src='https://lms.tuit.uz/assets/images/logo-md.png'
-                    alt='Logo of tuit'
+                    src="https://lms.tuit.uz/assets/images/logo-md.png"
+                    alt="Logo of tuit"
                   />
                 </div>
               </div>
-              <h2 className='text-3xl font-bold text-center'>Kirish</h2>
-              <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
-                <div className='mb-5'>
-                  <label className=' text-sm mb-1' htmlFor='email'>
+              <h2 className="text-3xl font-bold text-center">Kirish</h2>
+              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+                <div className="mb-5">
+                  <label className=" text-sm mb-1" htmlFor="email">
                     {lang.email}
                   </label>
-                  <div className='flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1'>
+                  <div className="flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1">
                     <EmailIcon />
                     <input
-                      id='email'
+                      id="email"
                       {...register("email")}
-                      className='w-full outline-none h-8'
-                      type='text'
+                      className="w-full outline-none h-8"
+                      type="text"
                     />
                     {errors?.email && (
-                      <p className='text-red-500 text-sm'>
+                      <p className="text-red-500 text-sm">
                         {errors.email.message}
                       </p>
                     )}
                   </div>
                 </div>
-                <div className='mb-5'>
-                  <label className='text-sm mb-1' htmlFor='password'>
+                <div className="mb-5">
+                  <label className="text-sm mb-1" htmlFor="password">
                     {lang.password}
                   </label>
-                  <div className='flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1'>
+                  <div className="flex items-center gap-2 border-2 rounded-md border-gray-600 px-2 py-1">
                     <PasswordIcon />
                     <input
-                      id='password'
+                      id="password"
                       {...register("password")}
-                      className='w-full outline-none h-8'
+                      className="w-full outline-none h-8"
                       type={isPasswordToogle ? "text" : "password"}
                     />
                     {errors?.password && (
-                      <p className='text-red-500 text-sm'>
+                      <p className="text-red-500 text-sm">
                         {errors.password.message}
                       </p>
                     )}
                     <button
-                      className='outline-none p-1 rounded-md transition-all hover:bg-slate-200'
+                      className="outline-none p-1 rounded-md transition-all hover:bg-slate-200"
                       onClick={(e) => {
                         e.preventDefault();
                         setIsPasswordToogle(!isPasswordToogle);
-                      }}>
+                      }}
+                    >
                       {isPasswordToogle ? <OpenEyeIcon /> : <CloseEyeIcon />}
                     </button>
                   </div>
                 </div>
                 <button
-                  type='submit'
-                  className='bg-black rounded-md text-white p-2 mb-4'>
+                  type="submit"
+                  className="bg-black rounded-md text-white p-2 mb-4"
+                >
                   {loading ? `${lang.waiting}...` : lang.login}
                 </button>
-                <div className='flex justify-between'>
+                <div className="flex justify-between">
                   <p>{lang.dontHaveAccount}</p>
-                  <Link to='/register' className='text-blue-500'>
+                  <Link to="/register" className="text-blue-500">
                     {lang.registration}
                   </Link>
                 </div>
               </form>
             </div>
-            <p className='absolute bottom-[2%] text-xs text-center w-[90%]'>
+            <p className="absolute bottom-[2%] text-xs text-center w-[90%]">
               Copyright © 2024 of Juniors Team
             </p>
           </div>

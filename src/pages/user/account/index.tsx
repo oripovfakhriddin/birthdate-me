@@ -6,7 +6,7 @@ const AccountPage = () => {
   return (
     <Fragment>
       <section>
-        <div className=''>{lang.lorem}</div>
+        <div className="">{lang.lorem}</div>
       </section>
     </Fragment>
   );

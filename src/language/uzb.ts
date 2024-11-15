@@ -1,5 +1,13 @@
 const UZB = {
   home: "Bosh sahifa",
+  firstName: "Ism",
+  lastName: "Familya",
+  untilBirthdate: "Tug'ilgan kungacha",
+  action: "Amallar",
+  users: "Foydalanuvchilar",
+  dashboard: "Boshqaruv paneli",
+  totalUsers: "Jami foydalanuvchilar soni",
+  account: "Hisob",
   contact: "Bog'lanish",
   about: "Biz haqimizda",
   logout: "Chiqish",
