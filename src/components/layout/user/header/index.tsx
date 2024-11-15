@@ -10,7 +10,7 @@ import ContactUsIcon from "../../../../assets/icons/contact-us-icon";
 import AboutUsIcon from "../../../../assets/icons/about-us-icon";
 import PersonIcon from "../../../../assets/icons/person-icon";
 import { LanguageContext } from "../../../../context/language";
-import LogOutModal from "../../../logout-modal";
+import LogOutModal from "../../../modals/logout-modal";
 
 const UserHeader = () => {
   const [isNavbar, setIsNavbar] = useState(false);

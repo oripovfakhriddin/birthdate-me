@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
-import CloseIcon from "../assets/icons/close-icon";
-import { TOKEN, USER } from "../constants";
-import { AuthContext } from "../context/auth";
+import CloseIcon from "../../assets/icons/close-icon";
+import { TOKEN, USER } from "../../constants";
+import { AuthContext } from "../../context/auth";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 

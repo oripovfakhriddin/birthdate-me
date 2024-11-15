@@ -91,7 +91,7 @@ const LoginPage = () => {
                   />
                 </div>
               </div>
-              <h2 className="text-3xl font-bold text-center">Kirish</h2>
+              <h2 className="text-3xl font-bold text-center">{lang.login}</h2>
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
                 <div className="mb-5">
                   <label className=" text-sm mb-1" htmlFor="email">
