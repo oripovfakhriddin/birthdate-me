@@ -53,7 +53,7 @@ const UserHeader = () => {
                 to="/account"
                 className="p-1 text-black rounded-lg transition  hover:bg-gray-300 dark:text-white dark:hover:bg-gray-700 focus:outline-none"
               >
-                <PersonIcon />
+                <PersonIcon width="32px" height="32px" />
               </NavLink>
               <button
                 data-collapse-toggle="log-out toggle"

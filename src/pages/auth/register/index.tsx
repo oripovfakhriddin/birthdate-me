@@ -82,7 +82,7 @@ const RegisterPage = () => {
                     Ism
                   </label>
                   <div className="flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1">
-                    <PersonIcon />
+                    <PersonIcon width="32px" height="32px" />
                     <input
                       {...register("firstName")}
                       id="firstName"
@@ -101,7 +101,7 @@ const RegisterPage = () => {
                     Familiya
                   </label>
                   <div className="flex items-center gap-2 border-2 rounded border-gray-600 px-2 py-1">
-                    <PersonIcon />
+                    <PersonIcon width="32px" height="32px" />
                     <input
                       {...register("lastName")}
                       id="lastName"
