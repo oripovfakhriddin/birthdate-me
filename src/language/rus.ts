@@ -6,9 +6,7 @@ const RUS = {
   untilBirthdate: "До дня рождения",
   action: "Действие",
   editUser: "Изменить пользователя",
-  youMustFillIt: "Вы должны заполнить его!",
-  emailIsRequired: "Электронная почта обязательна!",
-  yourPassword4must: "Ваш пароль должен быть длиной не менее 4 символов!",
+  
   about: "О нас",
   dashboard: "Панель инструментов",
   account: "Счет",
