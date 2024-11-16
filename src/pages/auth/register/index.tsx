@@ -98,7 +98,7 @@ const RegisterPage = () => {
                   >
                     {lang.firstName}
                   </label>
-                  <div className="flex items-center gap-2 border-2 dark:text-white rounded border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 border-2 dark:text-white rounded border-gray-600 dark:border-gray-400 px-2 py-1">
                     <PersonIcon width="32px" height="32px" />
                     <input
                       {...register("firstName")}
@@ -120,7 +120,7 @@ const RegisterPage = () => {
                   >
                     {lang.lastName}
                   </label>
-                  <div className="flex items-center gap-2 border-2 rounded dark:text-white border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 border-2 rounded dark:text-white border-gray-600 dark:border-gray-400 px-2 py-1">
                     <PersonIcon width="32px" height="32px" />
                     <input
                       {...register("lastName")}
@@ -142,7 +142,7 @@ const RegisterPage = () => {
                   >
                     {lang.birthdate}
                   </label>
-                  <div className="flex items-center gap-2 border-2 rounded dark:text-white border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 border-2 rounded dark:text-white border-gray-600 dark:border-gray-400 px-2 py-1">
                     <DateIcon />
                     <input
                       {...register("birthDate")}
@@ -164,7 +164,7 @@ const RegisterPage = () => {
                   >
                     {lang.email}
                   </label>
-                  <div className="flex items-center gap-2 border-2 rounded dark:text-white border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 border-2 rounded dark:text-white border-gray-600 dark:border-gray-400 px-2 py-1">
                     <EmailIcon />
                     <input
                       {...register("email")}
@@ -186,7 +186,7 @@ const RegisterPage = () => {
                   >
                     {lang.password}
                   </label>
-                  <div className="flex items-center gap-2 border-2 rounded-md dark:text-white border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 border-2 rounded-md dark:text-white border-gray-600 dark:border-gray-400 px-2 py-1">
                     <PasswordIcon />
                     <input
                       {...register("password")}
@@ -218,7 +218,7 @@ const RegisterPage = () => {
                   >
                     {lang.confirmPassword}
                   </label>
-                  <div className="flex items-center gap-2 border-2 rounded-md dark:text-white border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 border-2 rounded-md dark:text-white border-gray-600 dark:border-gray-400 px-2 py-1">
                     <PasswordIcon />
                     <input
                       {...register("prePassword")}

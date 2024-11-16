@@ -5,7 +5,7 @@ import request from "../../server";
 import { useContext } from "react";
 import { LanguageContext } from "../../context/language";
 
-const DeleteModal = ({
+const DeleteUserModal = ({
   isDeleteModalOpen,
   selected,
   closeDeleteModal,
@@ -81,4 +81,4 @@ const DeleteModal = ({
   );
 };
 
-export default DeleteModal;
+export default DeleteUserModal;

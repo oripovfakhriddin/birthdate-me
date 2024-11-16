@@ -5,6 +5,7 @@ import User from "../../../types/user";
 import { LanguageContext } from "../../../context/language";
 import NoData from "../../no-data";
 import DeleteModal from "../../modals/delete-user";
+import EditUserModal from "../../modals/edit-user";
 
 const UsersTableForAdmin = ({
   users,
@@ -16,9 +17,14 @@ const UsersTableForAdmin = ({
   const { lang } = useContext(LanguageContext);
   const [selected, setSelected] = useState<string | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
 
   const closeDeleteModal = () => {
     setIsDeleteModal(false);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModal(false);
   };
 
   return (
@@ -71,6 +77,10 @@ const UsersTableForAdmin = ({
                     </td>
                     <td className="py-4 pr-6 flex gap-2 justify-end items-center text-end">
                       <button
+                        onClick={() => {
+                          setSelected(user.birthDate);
+                          setIsEditModal(true);
+                        }}
                         type="button"
                         className="flex items-center gap-2 text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-4 py-2"
                       >
@@ -106,6 +116,13 @@ const UsersTableForAdmin = ({
           selected={selected}
           closeDeleteModal={closeDeleteModal}
           refetch={refetch}
+        />
+      ) : null}
+      {isEditModal ? (
+        <EditUserModal
+          isEditModal={isEditModal}
+          selected={selected}
+          closeEditModal={closeEditModal}
         />
       ) : null}
     </Fragment>

@@ -4,6 +4,7 @@ const UZB = {
   lastName: "Familya",
   untilBirthdate: "Tug'ilgan kungacha",
   action: "Amallar",
+  editUser: "Foydalanuvchini tahrirlash",
   users: "Foydalanuvchilar",
   dashboard: "Boshqaruv paneli",
   totalUsers: "Jami foydalanuvchilar soni",

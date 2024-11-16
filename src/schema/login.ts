@@ -7,7 +7,7 @@ const loginSchema = yup.object().shape({
     .required("Katakni to'dirish shart!"),
   password: yup
     .string()
-    .min(4, "Parolingiz kamida 4 ta belgidan iborat!")
+    .min(4, "Parolingiz kamida 4 ta belgidan iborat bo'lishi kerak!")
     .required("To'ldirilishi shart!"),
 });
 

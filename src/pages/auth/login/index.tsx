@@ -116,7 +116,7 @@ const LoginPage = () => {
                   >
                     {lang.email}
                   </label>
-                  <div className="flex dark:text-white items-center gap-2 border-2 rounded border-gray-600 px-2 py-1">
+                  <div className="flex dark:text-white items-center gap-2 border-2 rounded border-gray-600 dark:border-gray-400 px-2 py-1">
                     <EmailIcon />
                     <input
                       id="email"
@@ -138,7 +138,7 @@ const LoginPage = () => {
                   >
                     {lang.password}
                   </label>
-                  <div className="flex items-center gap-2 dark:text-white border-2 rounded-md border-gray-600 px-2 py-1">
+                  <div className="flex items-center gap-2 dark:text-white border-2 rounded-md border-gray-600 dark:border-gray-400 px-2 py-1">
                     <PasswordIcon />
                     <input
                       id="password"
