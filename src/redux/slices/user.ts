@@ -31,7 +31,7 @@ export const getUsers = createAsyncThunk(
     currentPage?: string;
     search?: string;
   }) => {
-    const { data } = await request.get("api/user/allUsers", {
+    const { data } = await request.get("api/user/all-users", {
       params: {
         size,
         page: currentPage,

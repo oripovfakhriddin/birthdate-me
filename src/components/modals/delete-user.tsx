@@ -12,7 +12,7 @@ const DeleteUserModal = ({
   refetch,
 }: {
   isDeleteModalOpen: boolean;
-  selected: string | null;
+  selected: number | null;
   closeDeleteModal: () => void;
   refetch: () => void;
 }) => {
