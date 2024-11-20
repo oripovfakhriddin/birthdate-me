@@ -1,5 +1,5 @@
 import { Fragment } from "react/jsx-runtime";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../../context/language";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,25 +9,60 @@ import PersonIcon from "../../assets/icons/person-icon";
 import DateIcon from "../../assets/icons/date-icon";
 import CloseIcon from "../../assets/icons/close-icon";
 import EmailIcon from "../../assets/icons/email-icon";
+import EditUserPasswordModal from "./edit-user-password";
+import User from "../../types/user";
 
 const EditUserModal = ({
   isEditModal,
   selected,
+  user,
   closeEditModal,
 }: {
   isEditModal: boolean;
   selected: string | null;
+  user: User | null;
   closeEditModal: () => void;
 }) => {
   const { lang } = useContext(LanguageContext);
   const [loading, setLoading] = useState(false);
+  const [isPasswordEditModal, setIsPasswordEditModal] = useState(false);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<EditUserInfoFormValues>({
     resolver: yupResolver(editUserInfoSchema),
   });
+
+  useEffect(() => {
+    if (user !== null) {
+      setValue("firstName", user.firstName, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setValue("lastName", user.lastName, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setValue("email", user.firstName, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setValue("birthDate", user.birthDate, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+    }
+  }, [user]);
+
+  const closePasswordEditModal = () => {
+    setIsPasswordEditModal(false);
+  };
 
   const onSubmit: SubmitHandler<EditUserInfoFormValues> = async (values) => {
     console.log(values, selected);
@@ -39,7 +74,6 @@ const EditUserModal = ({
       {/* START edit user Modal*/}
       <div
         id="crud-modal"
-        aria-hidden="true"
         className={`${
           isEditModal ? "flex" : "hidden"
         } overflow-y-auto backdrop-blur overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full inset-0 h-[calc(100%-1rem)] max-h-full`}
@@ -150,10 +184,18 @@ const EditUserModal = ({
                   <p className="text-red-500 text-sm">{errors.email.message}</p>
                 )}
               </div>
-
+              <button
+                type="button"
+                onClick={() => {
+                  setIsPasswordEditModal(true);
+                }}
+                className="bg-orange-400 dark:bg-orange-800 rounded-md text-white p-2 mb-4 md:mb-0"
+              >
+                {lang.changePassword}
+              </button>
               <button
                 type="submit"
-                className="bg-black dark:bg-blue-800 rounded-md text-white p-2 col-span-2 mb-4 md:mb-0"
+                className="bg-green-400 dark:bg-blue-800 rounded-md text-white p-2 mb-4 md:mb-0"
               >
                 {loading ? lang.waiting : lang.confirmation}
               </button>
@@ -161,6 +203,10 @@ const EditUserModal = ({
           </div>
         </div>
       </div>
+      <EditUserPasswordModal
+        isPasswordEditModal={isPasswordEditModal}
+        closePasswordEditModal={closePasswordEditModal}
+      />
     </Fragment>
   );
 };

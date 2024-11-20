@@ -2,7 +2,7 @@ import { Fragment, useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import OpenEyeIcon from "../../../assets/icons/open-eye-icon";
@@ -34,6 +34,10 @@ const RegisterPage = () => {
     resolver: yupResolver(registerSchema),
   });
 
+  interface ErrorResponse {
+    message: string;
+  }
+
   const onSubmit: SubmitHandler<RegisterFormValues> = async (values) => {
     try {
       setLoading(true);
@@ -48,7 +52,9 @@ const RegisterPage = () => {
       setUser(data);
       navigate("/login");
     } catch (err) {
-      toast.error("Kiritilgan ma'lumotlaringizni tekshiring!");
+      const error = err as AxiosError;
+      const message = error.response?.data as ErrorResponse;
+      toast.error(message?.message);
     } finally {
       setLoading(false);
     }

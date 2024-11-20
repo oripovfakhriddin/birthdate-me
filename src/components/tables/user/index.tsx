@@ -18,6 +18,7 @@ const UsersTableForAdmin = ({
   const [selected, setSelected] = useState<string | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
+  const [userForEdit, setUserForEdit] = useState<User | null>(null);
 
   const closeDeleteModal = () => {
     setIsDeleteModal(false);
@@ -79,6 +80,7 @@ const UsersTableForAdmin = ({
                       <button
                         onClick={() => {
                           setSelected(user.birthDate);
+                          setUserForEdit(user);
                           setIsEditModal(true);
                         }}
                         type="button"
@@ -122,6 +124,7 @@ const UsersTableForAdmin = ({
         <EditUserModal
           isEditModal={isEditModal}
           selected={selected}
+          user={userForEdit}
           closeEditModal={closeEditModal}
         />
       ) : null}
