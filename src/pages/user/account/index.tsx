@@ -116,7 +116,7 @@ const AccountPage = () => {
 
                 <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                   <div className="w-full">
-                    <h3 className="dark:text-gray-300 mb-2">Sex</h3>
+                    <h3 className="dark:text-gray-300 mb-2">{lang.email}</h3>
                     <input
                       {...register("email")}
                       type="email"
