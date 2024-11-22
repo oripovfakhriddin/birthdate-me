@@ -1,11 +1,67 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Fragment } from "react/jsx-runtime";
 import { AuthContext } from "../../../context/auth";
 import { LanguageContext } from "../../../context/language";
+import PersonIcon from "../../../assets/icons/person-icon";
+import { SubmitHandler, useForm } from "react-hook-form";
+import EditUserInfoFormValues from "../../../types/edit-user-info";
+import editUserInfoSchema from "../../../schema/user-info";
+import { yupResolver } from "@hookform/resolvers/yup";
+import request from "../../../server";
+import { toast } from "react-toastify";
 
 const AdminAccountPage = () => {
   const { user } = useContext(AuthContext);
   const { lang } = useContext(LanguageContext);
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<EditUserInfoFormValues>({
+    resolver: yupResolver(editUserInfoSchema),
+  });
+
+  const onSubmit: SubmitHandler<EditUserInfoFormValues> = async (values) => {
+    try {
+      setLoading(true);
+      const { data } = await request.put(
+        `api/user/change-user-info/${user?.email}`,
+        values
+      );
+      toast.success(data.message);
+
+      setLoading(false);
+    } catch {
+      setLoading(false);
+      toast.warning(lang.couldnotEditThisUser);
+    }
+  };
+  useEffect(() => {
+    if (user !== null) {
+      setValue("firstName", user.firstName, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setValue("lastName", user.lastName, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setValue("email", user.email, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setValue("birthDate", user.birthDate, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+    }
+  }, [user]);
 
   return (
     <Fragment>
@@ -16,17 +72,12 @@ const AdminAccountPage = () => {
               <h1 className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl  font-bold mb-2 dark:text-white">
                 {lang.account}
               </h1>
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="w-full h-56 rounded-sm bg-[url('https://images.unsplash.com/photo-1449844908441-8829872d2607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHxob21lfGVufDB8MHx8fDE3MTA0MDE1NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat items-center">
-                  <div className="mx-auto flex justify-center w-56 h-full bg-blue-300/20 rounded-full bg-[url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxwcm9maWxlfGVufDB8MHx8fDE3MTEwMDM0MjN8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat"></div>
-                  <div className="flex justify-end">
-                    <input
-                      type="file"
-                      name="profile"
-                      id="upload_cover"
-                      hidden
-                      required
-                    />
+                  <div
+                    className={`mx-auto flex justify-center w-56 h-full bg-blue-300/20 rounded-full bg-[url()] bg-cover bg-center bg-no-repeat`}
+                  >
+                    <PersonIcon width="224px" height="224px" />
                   </div>
                 </div>
 
@@ -36,50 +87,68 @@ const AdminAccountPage = () => {
                       {lang.firstName}
                     </label>
                     <input
+                      {...register("firstName")}
                       type="text"
-                      value={user?.firstName}
                       className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                       placeholder="First Name"
                     />
+                    {errors?.firstName && (
+                      <p className="text-red-500 text-sm">
+                        {errors.firstName.message}
+                      </p>
+                    )}
                   </div>
                   <div className="w-full  mb-4 lg:mt-6">
                     <label htmlFor="" className=" dark:text-gray-300">
                       {lang.lastName}
                     </label>
                     <input
+                      {...register("lastName")}
                       type="text"
-                      value={user?.lastName}
                       className="mt-2 p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                       placeholder="Last Name"
                     />
+                    {errors?.lastName && (
+                      <p className="text-red-500 text-sm">
+                        {errors.lastName.message}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
                   <div className="w-full">
                     <h3 className="dark:text-gray-300 mb-2">Sex</h3>
-                    <select className="w-full text-grey border-2 rounded-lg p-4 pl-2 pr-2 dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800">
-                      <option disabled value="">
-                        Select Sex
-                      </option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
+                    <input
+                      {...register("email")}
+                      type="email"
+                      className="text-grey p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                    />
+                    {errors?.email && (
+                      <p className="text-red-500 text-sm">
+                        {errors.email.message}
+                      </p>
+                    )}
                   </div>
                   <div className="w-full">
                     <h3 className="dark:text-gray-300 mb-2">
                       {lang.birthdate}
                     </h3>
                     <input
+                      {...register("birthDate")}
                       type="date"
-                      value={user?.birthDate}
                       className="text-grey p-4 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
                     />
+                    {errors?.birthDate && (
+                      <p className="text-red-500 text-sm">
+                        {errors.birthDate.message}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
                   <button type="submit" className="w-full p-4">
-                    {lang.confirmation}
+                    {loading ? lang.waiting : lang.confirmation}
                   </button>
                 </div>
               </form>

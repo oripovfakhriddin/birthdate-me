@@ -8,12 +8,17 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import editUserPasswordSchema from "../../schema/user-password";
 import EditUserPasswordFormValues from "../../types/edit-user-password";
+import request from "../../server";
+import { toast } from "react-toastify";
+import User from "../../types/user";
 
 const EditUserPasswordModal = ({
-  isPasswordEditModal,
+  user,
+  refetch,
   closePasswordEditModal,
 }: {
-  isPasswordEditModal: boolean;
+  user: User | null;
+  refetch: () => void;
   closePasswordEditModal: () => void;
 }) => {
   const { lang } = useContext(LanguageContext);
@@ -27,11 +32,26 @@ const EditUserPasswordModal = ({
     formState: { errors },
   } = useForm({ resolver: yupResolver(editUserPasswordSchema) });
 
-  const onSubmit: SubmitHandler<EditUserPasswordFormValues> = async (
-    values
-  ) => {
-    setIsLoading(true);
-    console.log(values);
+  const onSubmit: SubmitHandler<EditUserPasswordFormValues> = async ({
+    oldPassword,
+    newPassword,
+  }) => {
+    try {
+      setIsLoading(true);
+      const { data } = await request.patch("api/user/change/password", {
+        params: {
+          oldPassword,
+          newPassword,
+          email: user?.email,
+        },
+      });
+      toast.success(data.message);
+      refetch();
+    } catch {
+      setIsLoading(false);
+      toast.warning(lang.couldnotPasswordEditThisUser);
+      refetch();
+    }
   };
 
   return (
@@ -39,9 +59,7 @@ const EditUserPasswordModal = ({
       {/* START edit user Modal*/}
       <div
         id="crud-modal"
-        className={`${
-          isPasswordEditModal ? "flex" : "hidden"
-        } overflow-y-auto backdrop-blur overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full inset-0 h-[calc(100%-1rem)] max-h-full`}
+        className={`flex overflow-y-auto backdrop-blur overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full inset-0 h-[calc(100%-1rem)] max-h-full`}
       >
         <div className="relative p-4 w-full md:max-w-3xl max-h-full">
           {/* <!-- Modal content --> */}
@@ -80,7 +98,7 @@ const EditUserPasswordModal = ({
                   <input
                     {...register("oldPassword")}
                     id="password"
-                    className="w-full outline-none h-8 dark:text-white dark:bg-gray-800"
+                    className="w-full outline-none h-8 dark:text-white dark:bg-gray-700"
                     type={isPasswordToogle ? "text" : "password"}
                   />
 
@@ -112,7 +130,7 @@ const EditUserPasswordModal = ({
                   <input
                     {...register("newPassword")}
                     id="prePassword"
-                    className="w-full outline-none h-8 dark:text-white dark:bg-gray-800"
+                    className="w-full outline-none h-8 dark:text-white dark:bg-gray-700"
                     type={isPrePasswordToogle ? "text" : "password"}
                   />
 
@@ -136,7 +154,7 @@ const EditUserPasswordModal = ({
                 type="submit"
                 className="bg-black dark:bg-blue-800 rounded-md text-white p-2 col-span-2 mb-4 md:mb-0"
               >
-                {isLoading ? lang.waiting : lang.registration}
+                {isLoading ? lang.waiting : lang.confirmation}
               </button>
             </form>
           </div>

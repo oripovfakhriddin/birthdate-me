@@ -11,21 +11,25 @@ import CloseIcon from "../../assets/icons/close-icon";
 import EmailIcon from "../../assets/icons/email-icon";
 import EditUserPasswordModal from "./edit-user-password";
 import User from "../../types/user";
+import request from "../../server";
+import { toast } from "react-toastify";
 
 const EditUserModal = ({
   isEditModal,
-  selected,
   user,
   closeEditModal,
+  refetch,
 }: {
   isEditModal: boolean;
-  selected: string | null;
+
   user: User | null;
   closeEditModal: () => void;
+  refetch: () => void;
 }) => {
   const { lang } = useContext(LanguageContext);
   const [loading, setLoading] = useState(false);
   const [isPasswordEditModal, setIsPasswordEditModal] = useState(false);
+  const [isChanged, setIsChanged] = useState(false);
   const {
     register,
     handleSubmit,
@@ -34,6 +38,10 @@ const EditUserModal = ({
   } = useForm<EditUserInfoFormValues>({
     resolver: yupResolver(editUserInfoSchema),
   });
+
+  const handleChange = () => {
+    setIsChanged(true);
+  };
 
   useEffect(() => {
     if (user !== null) {
@@ -47,7 +55,7 @@ const EditUserModal = ({
         shouldDirty: true,
         shouldTouch: true,
       });
-      setValue("email", user.firstName, {
+      setValue("email", user.email, {
         shouldValidate: true,
         shouldDirty: true,
         shouldTouch: true,
@@ -65,8 +73,20 @@ const EditUserModal = ({
   };
 
   const onSubmit: SubmitHandler<EditUserInfoFormValues> = async (values) => {
-    console.log(values, selected);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const { data } = await request.put(
+        `api/user/change-user-info/${user?.email}`,
+        values
+      );
+      toast.success(data.message);
+      refetch();
+      setLoading(false);
+    } catch {
+      setLoading(false);
+      toast.warning(lang.couldnotEditThisUser);
+      refetch();
+    }
   };
 
   return (
@@ -115,6 +135,7 @@ const EditUserModal = ({
                     id="firstName"
                     className="w-full outline-none h-8 dark:text-white dark:bg-gray-700"
                     type="text"
+                    onChange={handleChange}
                   />
                 </div>
                 {errors?.firstName && (
@@ -137,6 +158,7 @@ const EditUserModal = ({
                     id="lastName"
                     className="w-full outline-none h-8 dark:text-white dark:bg-gray-700"
                     type="text"
+                    onChange={handleChange}
                   />
                 </div>
                 {errors?.lastName && (
@@ -159,6 +181,7 @@ const EditUserModal = ({
                     id="birthDate"
                     className="w-full outline-none h-8 dark:text-white dark:bg-gray-700"
                     type="date"
+                    onChange={handleChange}
                   />
                 </div>
                 {errors?.birthDate && (
@@ -178,6 +201,7 @@ const EditUserModal = ({
                     id="email"
                     className="w-full outline-none h-8 dark:text-white dark:bg-gray-700"
                     type="text"
+                    onChange={handleChange}
                   />
                 </div>
                 {errors?.email && (
@@ -189,24 +213,36 @@ const EditUserModal = ({
                 onClick={() => {
                   setIsPasswordEditModal(true);
                 }}
-                className="bg-orange-400 dark:bg-orange-800 rounded-md text-white p-2 mb-4 md:mb-0"
+                className="bg-orange-400 dark:bg-orange-700 rounded-md text-white p-2 mb-4 md:mb-0"
               >
                 {lang.changePassword}
               </button>
-              <button
-                type="submit"
-                className="bg-green-400 dark:bg-blue-800 rounded-md text-white p-2 mb-4 md:mb-0"
-              >
-                {loading ? lang.waiting : lang.confirmation}
-              </button>
+              {isChanged ? (
+                <button
+                  type="submit"
+                  className="bg-green-400 dark:bg-blue-800 rounded-md text-white p-2 mb-4 md:mb-0"
+                >
+                  {loading ? lang.waiting : lang.confirmation}
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="bg-red-400 dark:bg-red-800 rounded-md text-white p-2 mb-4 md:mb-0"
+                >
+                  {lang.cancel}
+                </button>
+              )}
             </form>
           </div>
         </div>
       </div>
-      <EditUserPasswordModal
-        isPasswordEditModal={isPasswordEditModal}
-        closePasswordEditModal={closePasswordEditModal}
-      />
+      {isPasswordEditModal ? (
+        <EditUserPasswordModal
+          user={user}
+          closePasswordEditModal={closePasswordEditModal}
+          refetch={refetch}
+        />
+      ) : null}
     </Fragment>
   );
 };

@@ -15,8 +15,7 @@ const UsersTableForAdmin = ({
   refetch: () => void;
 }) => {
   const { lang } = useContext(LanguageContext);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [selectedForEdit, setSelectedForEdit] = useState<string | null>(null);
+  const [selected, setSelected] = useState<number | string | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [userForEdit, setUserForEdit] = useState<User | null>(null);
@@ -80,7 +79,6 @@ const UsersTableForAdmin = ({
                     <td className="py-4 pr-6 flex gap-2 justify-end items-center text-end">
                       <button
                         onClick={() => {
-                          setSelectedForEdit(user.email);
                           setUserForEdit(user);
                           setIsEditModal(true);
                         }}
@@ -124,9 +122,9 @@ const UsersTableForAdmin = ({
       {isEditModal ? (
         <EditUserModal
           isEditModal={isEditModal}
-          selected={selectedForEdit}
           user={userForEdit}
           closeEditModal={closeEditModal}
+          refetch={refetch}
         />
       ) : null}
     </Fragment>
