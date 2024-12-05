@@ -4,6 +4,7 @@ import { TOKEN, USER } from "../../constants";
 import { AuthContext } from "../../context/auth";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { LanguageContext } from "../../context/language";
 
 const LogOutModal = ({
   isOpen,
@@ -18,6 +19,7 @@ const LogOutModal = ({
 }) => {
   const { setIsAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { lang } = useContext(LanguageContext);
 
   const logOutFunction = () => {
     Cookies.remove(TOKEN);
@@ -57,7 +59,7 @@ const LogOutModal = ({
               onClick={logOutFunction}
               className="text-white bg-red-600 hover:bg-red-800  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
             >
-              Ha albatta
+              {lang.confirmation}
             </button>
           </div>
         </div>

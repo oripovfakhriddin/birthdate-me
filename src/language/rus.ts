@@ -25,6 +25,7 @@ const RUS = {
   couldnotPasswordEditThisUser: "Не удалось изменить пароль этого пользователя!",
   numberOfDaysLeftUntilYourBirthday: "Количество дней до дня рождения:",
   understandable: "Понятно",
+  areYouSureYouWantToLogOut: "Вы уверены, что хотите выйти?",
   confirmation: "Подтверждение",
   users: "Пользователи",
   cancel: "Отмена",

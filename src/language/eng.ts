@@ -21,6 +21,7 @@ const ENG = {
   couldnotPasswordEditThisUser: "Could not edit password this user!",
   numberOfDaysLeftUntilYourBirthday: "Number of days left until your birthday:",
   understandable: "Understandable",
+  areYouSureYouWantToLogOut: "Are you sure you want to log out?",
   confirmation: "Confirmation",
   cancel: "Cancel",
   of: "of",

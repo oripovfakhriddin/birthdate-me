@@ -27,6 +27,7 @@ const UZB = {
   couldnotPasswordEditThisUser: "Bu foydalanuvchi parolini tahrirlab bo‘lmadi!",
   numberOfDaysLeftUntilYourBirthday: "Tug'ilgan kuningizga qolgan kunlar soni:",
   understandable: "Tushunarli",
+  areYouSureYouWantToLogOut: "Tizimdan chiqishga ishonchingiz komilmi?",
   confirmation: "Tasdiqlash",
   cancel: "Bekor qilish",
   birthdate: "Tug'ilgan kun",

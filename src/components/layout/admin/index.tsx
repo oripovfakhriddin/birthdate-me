@@ -220,7 +220,7 @@ const AdminLayoutPage = () => {
       {isLogOutModal && (
         <LogOutModal
           isOpen={isLogOutModal}
-          text="Tizimdan chiqishga ishonchingiz komilmi?"
+          text={lang.areYouSureYouWantToLogOut}
           icon={<LogOutIcon className="mx-auto !w-10 !h-10 mt-10 mb-5" />}
           toggleModal={toggleIsLogOutModal}
         />
