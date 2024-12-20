@@ -1,21 +1,21 @@
 import { Fragment, useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import axios, { AxiosError } from "axios";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 import LoginImg from "/pictures/logo-login-background.png";
 import OpenEyeIcon from "../../../assets/icons/open-eye-icon";
 import CloseEyeIcon from "../../../assets/icons/close-eye-icon";
 import EmailIcon from "../../../assets/icons/email-icon";
 import PasswordIcon from "../../../assets/icons/password-icon";
-import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/auth";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import loginSchema from "../../../schema/login";
 import LoginFormValues from "../../../types/login";
-import Cookies from "js-cookie";
 import User from "../../../types/user";
 import request from "../../../server";
-import axios, { AxiosError } from "axios";
 import { ENDPOINT, TOKEN, USER } from "../../../constants";
-import { toast } from "react-toastify";
 import { LanguageContext } from "../../../context/language";
 import ThemeToggle from "../../../components/theme-toggle";
 
@@ -124,12 +124,12 @@ const LoginPage = () => {
                       className="w-full outline-none  h-8 dark:text-white  dark:bg-gray-800"
                       type="text"
                     />
-                    {errors?.email && (
-                      <p className="text-red-500 text-sm">
-                        {errors.email.message}
-                      </p>
-                    )}
                   </div>
+                  {errors?.email && (
+                    <p className="text-red-500 text-sm">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
                 <div className="mb-5">
                   <label
@@ -146,11 +146,7 @@ const LoginPage = () => {
                       className="w-full outline-none h-8 dark:text-white  dark:bg-gray-800"
                       type={isPasswordToogle ? "text" : "password"}
                     />
-                    {errors?.password && (
-                      <p className="text-red-500 text-sm">
-                        {errors.password.message}
-                      </p>
-                    )}
+
                     <button
                       className="outline-none p-1 rounded-md transition-all dark:text-white hover:bg-slate-200"
                       onClick={(e) => {
@@ -161,6 +157,11 @@ const LoginPage = () => {
                       {isPasswordToogle ? <OpenEyeIcon /> : <CloseEyeIcon />}
                     </button>
                   </div>
+                  {errors?.password && (
+                    <p className="text-red-500 text-sm">
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
                 <button
                   type="submit"

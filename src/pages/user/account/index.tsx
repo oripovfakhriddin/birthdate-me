@@ -1,12 +1,12 @@
 import { Fragment, useContext, useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import { LanguageContext } from "../../../context/language";
 import { AuthContext } from "../../../context/auth";
 import EditUserInfoFormValues from "../../../types/edit-user-info";
-import { SubmitHandler, useForm } from "react-hook-form";
 import editUserInfoSchema from "../../../schema/user-info";
-import { yupResolver } from "@hookform/resolvers/yup";
 import request from "../../../server";
-import { toast } from "react-toastify";
 import PersonIcon from "../../../assets/icons/person-icon";
 
 const AccountPage = () => {

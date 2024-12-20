@@ -1,14 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { Fragment } from "react/jsx-runtime";
+import { useContext, useEffect, useState, Fragment } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/auth";
 import { LanguageContext } from "../../../context/language";
 import PersonIcon from "../../../assets/icons/person-icon";
-import { SubmitHandler, useForm } from "react-hook-form";
 import EditUserInfoFormValues from "../../../types/edit-user-info";
 import editUserInfoSchema from "../../../schema/user-info";
-import { yupResolver } from "@hookform/resolvers/yup";
 import request from "../../../server";
-import { toast } from "react-toastify";
 
 const AdminAccountPage = () => {
   const { user } = useContext(AuthContext);
